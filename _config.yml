@@ -1,4 +1,4 @@
 name: gwoose
 markdown: kramdown
 
-#pemalink: /blog/:year/:month/:day/:title
+pemalink: /blog/:year/:month/:day/:title
