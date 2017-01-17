@@ -1,0 +1,38 @@
+# Site settings
+name: Guo Wang's Blog
+email: asrhett@126.com
+author: Guo Wang
+url: http://www.guowang.com
+resume_site: http://www.guowang.com/Resume.io/
+github: https://github.com/guowang121889/
+baseurl: ""
+description: Actually, less is more!
+meta_description: guowang;个人博客;学而不思则罔;思而不学则殆;生命不止;折腾不休
+motto: It's our wits that make us men.
+banner: 学而不思则罔，思而不学则殆。
+
+#permalink: /:categories/:year/:month/:day/:title/
+permalink: /:year/:month/:day/:title/
+paginate: 10
+
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
+
+gems: [jekyll-paginate]
+github_username: guowang 
+highlighter: Pygments
+
+# Build settings
+markdown: kramdown
+
+FB:
+  comments :
+    provider : Wang Guo
+    duoshuo:
+        short_name : Guowang
+    disqus :
+        short_name : GW
+    # facebook :
+    #   appid : 123
+    #   num_posts: 5
+    #   width: 580
+    #   colorscheme: light
