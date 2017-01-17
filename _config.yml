@@ -1,13 +1,13 @@
 # Site settings
-name: Guo Wang's Blog
-email: asrhett@126.com
-author: Guo Wang
-url: http://www.guowang.com
-resume_site: http://www.guowang.com/Resume.io/
-github: https://github.com/guowang121889/
+name: Dev&Ops gwoose's Blog
+email: gwoose@126.com
+author: gwoose
+url: https://gwoose.github.io
+resume_site: https://gwoose.github.io/Resume.html
+github: https://github.com/gwoose/
 baseurl: ""
 description: Actually, less is more!
-meta_description: guowang;个人博客;学而不思则罔;思而不学则殆;生命不止;折腾不休
+meta_description: gwoose;个人博客;学而不思则罔;思而不学则殆;生命不止;折腾不休
 motto: It's our wits that make us men.
 banner: 学而不思则罔，思而不学则殆。
 
@@ -18,7 +18,7 @@ paginate: 10
 exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
 
 gems: [jekyll-paginate]
-github_username: guowang 
+github_username: gwoose 
 highlighter: Pygments
 
 # Build settings
@@ -26,9 +26,9 @@ markdown: kramdown
 
 FB:
   comments :
-    provider : Wang Guo
+    provider : gwoose
     duoshuo:
-        short_name : Guowang
+        short_name : gw
     disqus :
         short_name : GW
     # facebook :
