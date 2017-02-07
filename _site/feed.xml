@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description>Actually, less is more!</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 07 Feb 2017 03:17:33 -0500</pubDate>
+    <lastBuildDate>Tue, 07 Feb 2017 03:17:33 -0500</lastBuildDate>
+    <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>mysql-5.7.17 通用二进制包安装</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;来源于：&lt;a href=&quot;https://dev.mysql.com/doc/refman/5.7/en/binary-installation.html&quot;&gt;官方文档&lt;/a&gt;，也可以阅读原文，更清晰！
+    获取二进制包，请参考获取&lt;a href=&quot;https://dev.mysql.com/doc/refman/5.7/en/getting-mysql.html&quot;&gt;MySQL&lt;/a&gt;。
+    MySQL 二进制包一般命名为mysql-VERSION-OS.tar.gz，VERSION代表版本号，OS表示操作系统版本；&lt;/p&gt;
+
+  &lt;p&gt;注意：&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;二进制安装和包管理器安装版本有冲突，建议卸载后再安装。如果之前使用操作系统包管理器安装过MySQL，例如YUM、APT，安装二进制版本可能会出现错误。建议完全卸载此前安装的MySQL，数据目录和配置文件如/etc/my.cnf文件或者/etc/mysql目录；&lt;/li&gt;
+    &lt;li&gt;MySQL依赖于libaio 库。如果缺少此库在数据初始化和后去服务器启动中会失败，如果需要请提前安装它，如yum install libaio
+      &lt;h2 id=&quot;命令序列&quot;&gt;命令序列&lt;/h2&gt;
+      &lt;p&gt;命令序列：&lt;/p&gt;
+      &lt;pre&gt;&lt;code&gt;  shell&amp;gt; groupadd mysql
+  shell&amp;gt; useradd -r -g mysql -s /bin/false mysql
+  shell&amp;gt; cd /usr/local
+  shell&amp;gt; tar zxvf /path/to/mysql-VERSION-OS.tar.gz
+  shell&amp;gt; ln -s full-path-to-mysql-VERSION-OS mysql
+  shell&amp;gt; cd mysql
+  shell&amp;gt; mkdir mysql-files
+  shell&amp;gt; chmod 750 mysql-files
+  shell&amp;gt; chown -R mysql .
+  shell&amp;gt; chgrp -R mysql .
+  shell&amp;gt; scripts/mysql_install_db --user=mysql# MySQL 5.7.0 to 5.7.4
+  shell&amp;gt; bin/mysql_install_db --user=mysql    # MySQL 5.7.5
+  shell&amp;gt; bin/mysqld --initialize --user=mysql # MySQL 5.7.6 and up
+  shell&amp;gt; bin/mysql_ssl_rsa_setup              # MySQL 5.7.6 and up
+  shell&amp;gt; chown -R root .
+  shell&amp;gt; chown -R mysql data mysql-files
+  shell&amp;gt; bin/mysqld_safe --user=mysql &amp;amp;
+  # Next command is optional
+  shell&amp;gt; cp support-files/mysql.server /etc/init.d/mysql.server
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;h2 id=&quot;建立mysql用户&quot;&gt;建立mysql用户&lt;/h2&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Tue, 07 Feb 2017 02:27:00 -0500</pubDate>
+        <link>http://localhost:4000/2017/02/07/mysql_5.7.17-installation/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/02/07/mysql_5.7.17-installation/</guid>
+        
+        <category>installation</category>
+        
+        
+        <category>mysql</category>
+        
+      </item>
+    
+      <item>
+        <title>Python function prohibition</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#高阶函数&quot; id=&quot;markdown-toc-高阶函数&quot;&gt;高阶函数&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;高阶函数&quot;&gt;高阶函数&lt;/h1&gt;
+&lt;p&gt;** 返回函数或者参数是函数的函数 
+** Python中函数是一等对象(first class)，函数也是对象，并且它可以像普通对象一样赋值，作为参数，作为返回值；
+相关情况：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;函数作为返回值： 通常是用于闭包的场景， 需要封装一些变量
+    &lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;def counter(i):
+  base = i
+  def inc(x=1):
+      nonlocal base
+      base += x
+      return base
+  return inc
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;inc = counter(3)
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;inc(3)
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;6&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;函数作为参数：通常用于大多数逻辑固定，少部分逻辑不固定的场景
+```python
+def sort(it, cmp=lambda a, b: a &amp;lt; b):  &lt;br /&gt;
+  ret = []
+  for x in it:
+      for i, e in enumerate(ret):
+          if cmp(x, e):
+              ret.insert(i, x)
+              break
+      else:
+          ret.append(x)
+  return ret&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;```python
+sort([1, 3, 2, 4, 6, 8, 5], lambda a, b: a&amp;gt;b)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[8, 6, 5, 4, 3, 2, 1] * 函数作为参数，返回值也是函数： 通常用于作为参数函数执行前后需要一些额外操作 ```python import datetime def logger(fn): # 函数作为返回值： 封装了fn
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+return wrap ``` ```python def add(x, y):
+return x + y ``` ```python loged_add = logger(add) ``` ```python loged_add(3, y=5) ```
+call add took 0:00:00.000030
+8 ```python import time def sleep(x):
+time.sleep(x) ``` ```python logged_sleep = logger(sleep) ``` ```python logged_sleep(3) ```
+call sleep took 0:00:03.005698 ```python sleep = logger(sleep) ``` ```python sleep(3) ```
+call sleep took 0:00:03.003675 # 装饰器 参数是**一个函数**， 返回值是**一个函数**的**函数**，就可以作为装饰器 * 装饰器的使用 ```python import datetime def logger(fn): # 函数作为返回值： 封装了fn
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+return wrap ``` ```python @logger def sleep(x):
+time.sleep(x) ``` ```python sleep(3) ```
+call sleep took 0:00:03.003233 相当于： ```python import datetime def logger(fn): # 函数作为返回值： 封装了fn
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+return wrap
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;import time
+def sleep(x):
+   time.sleep(x)
+sleep=logger(sleep)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+```python
+help(list.insert)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Help on method_descriptor:
+
+insert(...)
+    L.insert(index, object) -- insert object before index
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;help(add)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Help on function add in module __main__:
+
+add(x, y) ## 柯里化     函数可以有它的文档：可以使用fn.__doc__或help(fn)，函数的其他属性可以使用dir(fn)得到 ```python def fn():
+'''this is fn'''  ``` ```python help(fn) ```
+Help on function fn in module __main__:
+
+fn()
+    this is fn
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;fn.__doc__
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;'this is fn' ```python fn.__name__ ```
+'fn' ```python sleep.__name__  # sleep函数的信息，在装饰后改变了，--没有柯里化 ```
+'wrap' ```python import datetime  ##  引入函数专门做柯里化 def logger(fn): # 函数作为返回值： 封装了fn
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+wrap.__name__ = fn.__name__
+wrap.__doc__ = fn.__doc__
+return wrap ``` ```python @logger def sleep(x):
+time.sleep(x) ``` ```python sleep.__name__ ```
+'sleep'   # 实现了，不过这部分逻辑不需要重复，写个函数先替代它... ```python def copy_proprities(src, dst):
+dst.__name__ =  src.__name__
+dst.__doc__ = src.__doc__ ``` ```python import datetime def logger(fn):
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+copy_proprities(fn, wrap)
+return wrap ``` ```python def copy_proprities(src):  # 既然里面有了src的变量，为什么不写一个目标参数就可以的函数，等等这里输入是一个函数，返回也是一个函数，那么应该是装饰器！不过它要求输入两个参数：dst需要在装饰器中传递进去。
+def _copy(dst):
+    dst.__name__ =  src.__name__
+    dst.__doc__ = src.__doc__
+    return dst
+return _copy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;```python
+import datetime
+def logger(fn): # 函数作为返回值： 封装了fn
+    @copy_proprities(fn)
+    def wrap(*args, **kwargs):
+        start = datetime.datetime.now()
+        ret = fn(*args, **kwargs)
+        end = datetime.datetime.now()
+        print('call {} took {}'.format(fn.__name__, end-start))
+        return ret
+    return wrap
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;@logger
+def sleep(x):
+    time.sleep(x)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;sleep.__name__
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;'sleep' ```python import functools ``` ```python import datetime def logger(fn): # 函数作为返回值： 封装了fn
+@functools.wraps(fn)
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+return wrap ``` ```python @logger def sleep(x):
+time.sleep(x) ``` ```python sleep.__name__ ```
+'sleep' ```python help(functools.wraps)  # 这里有个函数专职做柯里化，调用它就行了 ```
+Help on function wraps in module functools:
+
+wraps(wrapped, assigned=('__module__', '__name__', '__qualname__', '__doc__', '__annotations__'), updated=('__dict__',))
+    Decorator factory to apply update_wrapper() to a wrapper function
+    
+    Returns a decorator that invokes update_wrapper() with the decorated
+    function as the wrapper argument and the arguments to wraps() as the
+    remaining arguments. Default arguments are as for update_wrapper().
+    This is a convenience function to simplify applying partial() to
+    update_wrapper(). ## 带参数的装饰器： 一个函数， 返回一个不带参数的装饰器 ```python s = datetime.datetime.now() ``` ```python e = datetime.datetime.now() ``` ```python delta = e - s ``` ```python delta.total_seconds() ```
+13.524782 ```python def logger(s):
+def _logger(fn):
+    @functools.wraps(fn)
+    def wrap(*args, **kwargs):
+        start = datetime.datetime.now()
+        ret = fn(*args, **kwargs)
+        end = datetime.datetime.now(ii)
+        if (end-start).total_seconds() &amp;gt; s:
+            print('call {} took {}'.format(fn.__name__, end-start))
+        return ret
+    return wrap
+return _logger
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;```python
+@logger(2)
+def sleep(x):
+    time.sleep(x)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;sleep(3)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;call sleep took 0:00:03.004279 ```python sleep(1) ``` ```python def logger(s, p=lambda name, t: print('call {} took {}'.format(name, t))):
+def _logger(fn):
+    
+    @functools.wraps(fn)
+    def wrap(*args, **kwargs):
+        
+        start = datetime.datetime.now()
+        ret = fn(*args, **kwargs)
+        end = datetime.datetime.now()
+        if (end-start).total_seconds() &amp;gt; s:
+            p(fn.__name__, end-start)
+        return ret
+    return wrap
+return _logger
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;```python
+@logger(2, p=lambda name, t: None)
+def sleep(x):
+    time.sleep(x)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;sleep(3)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;def logger(s):
+    def _logger(p=lambda name, t: print('call {} took {}'.format(name, t))):
+        def __logger(fn):
+            @functools.wraps(fn)
+            def wrap(*args, **kwargs):
+                start = datetime.datetime.now()
+                ret = fn(*args, **kwargs)
+                end = datetime.datetime.now()
+                if (end-start).total_seconds() &amp;gt; s:
+                    p(fn.__name__, end-start)
+                return ret
+            return wrap
+        return __logger
+    return _logger
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;logger2s = logger(2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;@logger2s()
+def sleep(x):
+    time.sleep(x)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;sleep(3)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;call sleep took 0:00:03.003878 ```python sleep(1) ``` ```python sleep = logger2s()(sleep) ```
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+        <pubDate>Sun, 15 Jan 2017 23:08:10 -0500</pubDate>
+        <link>http://localhost:4000/2017/01/15/function-of-python/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/01/15/function-of-python/</guid>
+        
+        <category>Python</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>如何使用LessOrMore这个Jekyll模版</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#致谢&quot; id=&quot;markdown-toc-致谢&quot;&gt;致谢&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#使用&quot; id=&quot;markdown-toc-使用&quot;&gt;使用&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#下载&quot; id=&quot;markdown-toc-下载&quot;&gt;下载&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#配置&quot; id=&quot;markdown-toc-配置&quot;&gt;配置&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#如何写文章&quot; id=&quot;markdown-toc-如何写文章&quot;&gt;如何写文章&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#执行&quot; id=&quot;markdown-toc-执行&quot;&gt;执行&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#效果&quot; id=&quot;markdown-toc-效果&quot;&gt;效果&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#为什么重复造轮子&quot; id=&quot;markdown-toc-为什么重复造轮子&quot;&gt;为什么重复造轮子&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#关于作者&quot; id=&quot;markdown-toc-关于作者&quot;&gt;关于作者&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#关于打赏&quot; id=&quot;markdown-toc-关于打赏&quot;&gt;关于打赏&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#支付宝&quot; id=&quot;markdown-toc-支付宝&quot;&gt;支付宝&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#微信&quot; id=&quot;markdown-toc-微信&quot;&gt;微信&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;致谢&quot;&gt;致谢&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;感谢&lt;a href=&quot;http://lesscss.cn/&quot;&gt;Less官网&lt;/a&gt;的样式，本Jekyll框架的样式都是基于Less官网的样式直接拷贝过来的。只是重构了JS，并且加入了Jekyll语法而已。&lt;/li&gt;
+  &lt;li&gt;感谢&lt;a href=&quot;https://github.com/&quot;&gt;Github&lt;/a&gt;提供的代码维护和发布平台&lt;/li&gt;
+  &lt;li&gt;感谢&lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;团队做出如此优秀的产品&lt;/li&gt;
+  &lt;li&gt;感谢&lt;a href=&quot;https://github.com/mattvh/solar-theme-jekyll&quot;&gt;Solar&lt;/a&gt;的原作者&lt;a href=&quot;http://www.webmaster-source.com/&quot;&gt;Matt Harzewski&lt;/a&gt;，在&lt;code&gt;2014.11&lt;/code&gt;-&lt;code&gt;2016.09&lt;/code&gt;的两年间，我的博客选用了此样式模版&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;使用&quot;&gt;使用&lt;/h1&gt;
+
+&lt;h2 id=&quot;下载&quot;&gt;下载&lt;/h2&gt;
+
+&lt;p&gt;使用git从&lt;a href=&quot;https://github.com/luoyan35714/LessOrMore.git&quot;&gt;LessOrMore&lt;/a&gt;主页下载项目&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/luoyan35714/LessOrMore.git&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;配置&quot;&gt;配置&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;LessOrMore&lt;/code&gt;项目需要配置的只有一个文件&lt;code&gt;_config.yml&lt;/code&gt;，打开之后按照如下进行配置。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;特别注意&lt;code&gt;baseurl&lt;/code&gt;的配置。如果是&lt;code&gt;***.github.io&lt;/code&gt;项目，不修改为空’‘的话，会导致JS,CSS等静态资源无法找到的错误&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;name: 博客名称
+email: 邮箱地址
+author: 作者名
+url: 个人网站
+### baseurl修改为项目名，如果项目是&amp;#39;***.github.io&amp;#39;，则设置为空&amp;#39;&amp;#39;
+baseurl: &amp;quot;/LessOrMore&amp;quot;
+resume_site: 个人简历网站
+github: github地址
+github_username: github用户名称
+FB:
+  comments :
+    provider : duoshuo
+    duoshuo:
+        short_name : 多说账户
+    disqus :
+        short_name : Disqus账户&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;如何写文章&quot;&gt;如何写文章&lt;/h2&gt;
+
+&lt;p&gt;在&lt;code&gt;LessOrMore/_posts&lt;/code&gt;目录下新建一个文件，可以创建文件夹并在文件夹中添加文件，方便维护。在新建文件中粘贴如下信息，并修改以下的&lt;code&gt;titile&lt;/code&gt;,&lt;code&gt;date&lt;/code&gt;,&lt;code&gt;categories&lt;/code&gt;,&lt;code&gt;tag&lt;/code&gt;的相关信息，添加&lt;code&gt;* content {:toc}&lt;/code&gt;为目录相关信息，在进行正文书写前需要在目录和正文之间输入至少2行空行。然后按照正常的Markdown语法书写正文。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;---
+layout: post
+#标题配置
+title:  标题
+#时间配置
+date:   2016-08-27 01:08:00 +0800
+#大类配置
+categories: document
+#小类配置
+tag: 教程
+---
+
+* content
+{:toc}
+
+
+我是正文。我是正文。我是正文。我是正文。我是正文。我是正文。&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;执行&quot;&gt;执行&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;jekyll server&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;效果&quot;&gt;效果&lt;/h2&gt;
+&lt;p&gt;打开浏览器并输入URL&lt;code&gt;http://localhost:4000/&lt;/code&gt;,回车。&lt;/p&gt;
+
+&lt;h1 id=&quot;为什么重复造轮子&quot;&gt;为什么重复造轮子&lt;/h1&gt;
+
+&lt;p&gt;很明显，我在重复造轮子。在13年接触到GIT，14年末接触到Jekyll，然后搭建了自己的博客，当时是选用了&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;JekyllThemes&lt;/a&gt;上的&lt;a href=&quot;https://github.com/mattvh/solar-theme-jekyll&quot;&gt;Solar&lt;/a&gt;主题，一直到现在。不过中间一直感觉页面风格还是偏暗，阅读不方便。并且有一些小的细节做的不是很好。在页面的跨平台浏览上有一些瑕疵。并且不区分一级标题和二级标题，导致没有重点强调。诸如此类，用了2年，用的越多，越发吃力，中间就一直在寻找新的能够让我一眼认定的主题。&lt;/p&gt;
+
+&lt;p&gt;虽然设计好看的主题很多。但是真正适合拿来做博客的却不多。中间一直没有找到合适的主题。直到有一天看到Less官网的主题之后，豁然觉得这就是我的博客想要的样子。简单而又不平凡。所以就决定了要把博客迁移到这个主题，然后拿了两天晚上来把这个主题做出来。&lt;/p&gt;
+
+&lt;p&gt;重复造了轮子，但是这个是迄今为止自己觉得最适合我的博客的轮子，所以是值得的！&lt;/p&gt;
+
+&lt;h1 id=&quot;关于作者&quot;&gt;关于作者&lt;/h1&gt;
+
+&lt;p&gt;热爱开源，热爱折腾的Java程序猿。更多个人信息和联系方式可以参照&lt;a href=&quot;http://www.hifreud.com/Resume.io/&quot;&gt;我的简介&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h1 id=&quot;关于打赏&quot;&gt;关于打赏&lt;/h1&gt;
+
+&lt;p&gt;如果你也像我一样在寻觅一个简洁的博客主题。不妨试下LessOrMore。&lt;/p&gt;
+
+&lt;p&gt;当然你也可以为了我的工作打赏！以激励我做出更好的东西。&lt;/p&gt;
+
+&lt;h2 id=&quot;支付宝&quot;&gt;支付宝&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/styles/images/zhifubao.PNG&quot; alt=&quot;支付宝二维码付款给Freud&quot; width=&quot;310&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;微信&quot;&gt;微信&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/styles/images/weixin.png&quot; alt=&quot;微信二维码付款给Freud&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 26 Aug 2016 13:08:00 -0400</pubDate>
+        <link>http://localhost:4000/2016/08/26/how-to-use-this-jekyll-theme/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/08/26/how-to-use-this-jekyll-theme/</guid>
+        
+        <category>教程</category>
+        
+        
+        <category>document</category>
+        
+      </item>
+    
+      <item>
+        <title>我面试过的上百个候选者中成功的人总会做的事情</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#充分的准备知道哪些事情是想要让面试官知道的&quot; id=&quot;markdown-toc-充分的准备知道哪些事情是想要让面试官知道的&quot;&gt;充分的准备，知道哪些事情是想要让面试官知道的。&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#了解你的听众组织你的回答语言&quot; id=&quot;markdown-toc-了解你的听众组织你的回答语言&quot;&gt;了解你的听众，组织你的回答语言。&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#保持冷静记住这次面试是双向的&quot; id=&quot;markdown-toc-保持冷静记住这次面试是双向的&quot;&gt;保持冷静，记住这次面试是双向的。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本文翻译自&lt;a href=&quot;https://www.linkedin.com/&quot;&gt;Linked In&lt;/a&gt;，作者Minal Mehta&lt;/p&gt;
+
+&lt;p&gt;原文地址 &lt;a href=&quot;http://www.linkedin.com/pulse/20141002164029-1473578-how-to-win-an-interview-before-it-starts?midToken=AQH6jyhMOpWb0g&amp;amp;trk=eml-b2_content_ecosystem_digest-recommended_articles-74-null&amp;amp;fromEmail=fromEmail&amp;amp;ut=3Sa86TzhqLj6s1&quot;&gt;I’ve Interviewed 100s of Candidates and the Ones I Hire Always Do This&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;面试是很有压力的一件事，通常，你只有不到一个小时的时间来使面试官相信你是所有候选者中最合适那一个。这个面试官很有可能还会在当天面试其他的候选者并且还有其他的事情要做。那你如何才能够脱颖而出呢。&lt;/p&gt;
+
+&lt;h1 id=&quot;充分的准备知道哪些事情是想要让面试官知道的&quot;&gt;充分的准备，知道哪些事情是想要让面试官知道的。&lt;/h1&gt;
+
+&lt;p&gt;通过上百个我做组织的面试者们，我发现最合适的那些面试者永远都是表达最清晰的。&lt;/p&gt;
+
+&lt;p&gt;所有人都知道充足的准备是必要的，但是如何准备是极其重要的，许多人会准备一份面试题和答案的合集，这导致一部分人在遇到合集以外的问题的时候会恐慌（我见过许多人恐慌或者说“这是一个好问题”，当我面试别人或者帮助那些学生准备面试的时候）&lt;/p&gt;
+
+&lt;p&gt;以下是我的建议：以最近的记忆最清晰的工作流程开始。通过阅读他们的信息或者询问那些你知道的在这工作的朋友来调查面试的公司和职位，了解他们正在寻找一个拥有什么样能力和文化的人&lt;/p&gt;
+
+&lt;p&gt;了解自己，你自己最擅长什么？怎么让你自身如何与公司正在找的人相匹配？这个过程会让你有一个清晰的定位，知道这个公司的职位是不是真的适合你。假设是的，你的自身能力跟这个职位相匹配，你同样知道自己的不足在哪。&lt;/p&gt;
+
+&lt;p&gt;从你过往工作经历中找出你突出的贡献，那些你已经确定了你的能力和工作要求相交集的部分。并且，找出一些事情来证明你可以改善你不足的方面。通常，你想出来的这几件事件可以重新组装利用来彰显不同方面的能力。&lt;/p&gt;
+
+&lt;h1 id=&quot;了解你的听众组织你的回答语言&quot;&gt;了解你的听众，组织你的回答语言。&lt;/h1&gt;
+
+&lt;p&gt;我推荐使用排序的组织来确保你的面试官可以理解你的表述。我是STAR方法的忠实粉丝：Situation处境（场景再现），Task任务（必须要做到的），Action行动（你实际做的），Result结果（发生了什么）&lt;/p&gt;
+
+&lt;p&gt;场景再现是最重要的，虽然你很清楚发生了什么，但是面试官不知道，花些时间来确保他们可以设身处地的知道当时的情况。如果你不这么做，剩下的故事将是对牛弹琴。&lt;/p&gt;
+
+&lt;p&gt;我个人也一直将同样的方法用在各种面试中。“如果你处在一个特定的情境下，你会怎么做？” 花点时间去建立一个共享的空间，让面试官了解情况，然后你们才能一起来聊需要做什么。&lt;/p&gt;
+
+&lt;h1 id=&quot;保持冷静记住这次面试是双向的&quot;&gt;保持冷静，记住这次面试是双向的。&lt;/h1&gt;
+
+&lt;p&gt;深呼吸然后记住这只是一次谈话，面试官给你一个评价是很重要的，但是同样重要的是你也要给面试官一个评价，并且确认这是你想要工作的地方。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 20 Dec 2014 07:05:00 -0500</pubDate>
+        <link>http://localhost:4000/2014/12/20/I-ve-Interviewed-100s-of-Candidates-and-the-Ones-I-Hire-Always-Do-This/</link>
+        <guid isPermaLink="true">http://localhost:4000/2014/12/20/I-ve-Interviewed-100s-of-Candidates-and-the-Ones-I-Hire-Always-Do-This/</guid>
+        
+        <category>interview</category>
+        
+        
+        <category>翻译文章</category>
+        
+      </item>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#诫子书&quot; id=&quot;markdown-toc-诫子书&quot;&gt;诫子书&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;First POST build by Jekyll.&lt;/p&gt;
+
+&lt;h2 id=&quot;诫子书&quot;&gt;诫子书&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/styles/images/jiezishu.jpg&quot; alt=&quot;诫子书&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;诸葛亮&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;夫君子之行，静以修身，俭以养德。非淡泊(澹泊)无以明志，非宁静无以致远。夫学须静也，才须学也。非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能冶性。
+年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 17 Nov 2014 00:31:01 -0500</pubDate>
+        <link>http://localhost:4000/2014/11/17/welcome-to-jekyll/</link>
+        <guid isPermaLink="true">http://localhost:4000/2014/11/17/welcome-to-jekyll/</guid>
+        
+        <category>jekyll</category>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+  </channel>
+</rss>

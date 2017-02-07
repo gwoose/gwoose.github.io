@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Python function prohibition - Dev&Ops gwoose's Blog</title>
+
+	<link rel="shortcut icon" href="/styles/images/favicon.jpg">
+	<link rel="icon" href="/styles/images/favicon.jpg">
+
+	<link rel="stylesheet" href="/styles/css/index.css">
+	<link rel="stylesheet" href="/styles/css/fontawesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/styles/css/syntax.css">
+	<link rel="canonical" href="/2017/01/15/function-of-python/">
+	<link rel="alternate" type="application/rss+xml" title="Dev&Ops gwoose's Blog" href="/feed.xml">
+	
+	<meta name="description" content="gwoose;个人博客;学而不思则罔;思而不学则殆;生命不止;折腾不休">
+
+	<script src="/styles/js/jquery.min.js"></script>
+	<!--[if lt IE 9]>
+    	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  	<![endif]-->
+  	<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "//hm.baidu.com/hm.js?94be4b0f9fc5d94cc0d0415ea6761ae9";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+  	<style type="text/css">
+	  	.docs-content{
+	  		margin-bottom: 10px;
+	  	}
+  	</style>
+</head>
+
+  <body class="index">
+
+    <header class="navbar navbar-inverse navbar-fixed-top docs-nav" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">
+        <img src="/styles/images/logo.jpg">
+      </a>
+    </div>
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">    
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/categories/">大类-分解</a>
+        </li>
+        <li>
+          <a href="/tag">小类-内聚</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/donate/"><strong>打赏</strong></a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">关于<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a rel="nofollow" target="_blank" href="https://github.com/gwoose/">Github</a></li>
+            <li><a rel="nofollow" target="_blank" href="https://gwoose.github.io/Resume.html">关于作者</a></li>
+            <li><a rel="nofollow" href="/books">我的书单</a></li>
+            <li><a rel="nofollow" href="/reference">推荐博客</a></li>
+            <li><a href="/feed.xml">RSS订阅</a></li>
+            <li class="divider"></li>
+            <li><a rel="nofollow" target="_blank" href="https://github.com/luoyan35714/LessOrMore.git">本项目</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <div class="docs-header" id="content">
+  <div class="container">
+  	
+  		<!--
+		    <h1>Python function prohibition</h1>
+		    <p>Post on Jan 15, 2017 by <a href="/about">gwoose</a></p>
+		-->
+		    <h1>It's our wits that make us men.</h1>
+    
+  </div>
+</div>
+    
+      
+<div class="banner">
+  <div class="container">
+  	
+    	<a href="/categories/#-ref"></a>	/
+    	<a href="/tag/#-ref"></a>
+    
+  </div>
+</div>
+
+    
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="sidebar hidden-print" role="complementary">
+        <div id="navigation">
+  <h1>目录</h1>
+  <ul class="nav sidenav">
+<!--
+    
+      
+      
+      
+      
+
+      
+        <li><a href="#year_2017">2017</a>
+          <ul class="nav">
+            <li><a href="#month_2017_February">February</a></li>
+      
+
+      
+            
+          
+              <li><a href="#month_2017_January">January</a></li>
+          
+        
+      
+    
+      
+      
+      
+      
+
+      
+
+      
+        
+            </ul>
+          </li>
+          <li><a href="#year_2016">2016</a>
+            <ul class="nav">
+              <li><a href="#month_2016_August">August</a></li>
+        
+      
+    
+      
+      
+      
+      
+
+      
+
+      
+        
+            </ul>
+          </li>
+          <li><a href="#year_2014">2014</a>
+            <ul class="nav">
+              <li><a href="#month_2014_December">December</a></li>
+        
+      
+    
+      
+      
+      
+      
+
+      
+
+      
+            
+          
+              <li><a href="#month_2014_November">November</a></li>
+          
+        
+      
+    
+      
+      
+      
+      
+
+      
+
+      
+            </ul>
+          </li>
+      
+    
+-->
+  </ul>
+</div> 
+      </div>
+    </div>
+    <div class="col-md-9" role="main">
+      <div class="panel docs-content">
+        <div class="wrapper">
+            <header class="post-header">
+              <h1 class="post-title">Python function prohibition</h1>
+              <!--
+                <p class="post-meta">Jan 15, 2017</p>
+              -->
+              <div class="meta">Posted on <span class="postdate">Jan 15, 2017</span> By <a target="_blank" href="http://localhost:4000">gwoose</a></div>
+              <br />
+            </header>
+            <article class="post-content">
+              <ul id="markdown-toc">
+  <li><a href="#高阶函数" id="markdown-toc-高阶函数">高阶函数</a></li>
+</ul>
+<h1 id="高阶函数">高阶函数</h1>
+<p>** 返回函数或者参数是函数的函数 
+** Python中函数是一等对象(first class)，函数也是对象，并且它可以像普通对象一样赋值，作为参数，作为返回值；
+相关情况：</p>
+<ul>
+  <li>函数作为返回值： 通常是用于闭包的场景， 需要封装一些变量
+    <pre><code class="language-python">def counter(i):
+  base = i
+  def inc(x=1):
+      nonlocal base
+      base += x
+      return base
+  return inc
+</code></pre>
+    <pre><code class="language-python">inc = counter(3)
+</code></pre>
+    <pre><code class="language-python">inc(3)
+</code></pre>
+    <p>6</p>
+  </li>
+  <li>函数作为参数：通常用于大多数逻辑固定，少部分逻辑不固定的场景
+```python
+def sort(it, cmp=lambda a, b: a &lt; b):  <br />
+  ret = []
+  for x in it:
+      for i, e in enumerate(ret):
+          if cmp(x, e):
+              ret.insert(i, x)
+              break
+      else:
+          ret.append(x)
+  return ret</li>
+</ul>
+
+<pre><code>```python
+sort([1, 3, 2, 4, 6, 8, 5], lambda a, b: a&gt;b)
+</code></pre>
+<pre><code>[8, 6, 5, 4, 3, 2, 1] * 函数作为参数，返回值也是函数： 通常用于作为参数函数执行前后需要一些额外操作 ```python import datetime def logger(fn): # 函数作为返回值： 封装了fn
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+return wrap ``` ```python def add(x, y):
+return x + y ``` ```python loged_add = logger(add) ``` ```python loged_add(3, y=5) ```
+call add took 0:00:00.000030
+8 ```python import time def sleep(x):
+time.sleep(x) ``` ```python logged_sleep = logger(sleep) ``` ```python logged_sleep(3) ```
+call sleep took 0:00:03.005698 ```python sleep = logger(sleep) ``` ```python sleep(3) ```
+call sleep took 0:00:03.003675 # 装饰器 参数是**一个函数**， 返回值是**一个函数**的**函数**，就可以作为装饰器 * 装饰器的使用 ```python import datetime def logger(fn): # 函数作为返回值： 封装了fn
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+return wrap ``` ```python @logger def sleep(x):
+time.sleep(x) ``` ```python sleep(3) ```
+call sleep took 0:00:03.003233 相当于： ```python import datetime def logger(fn): # 函数作为返回值： 封装了fn
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+return wrap
+</code></pre>
+
+<p>import time
+def sleep(x):
+   time.sleep(x)
+sleep=logger(sleep)</p>
+<pre><code>
+```python
+help(list.insert)
+</code></pre>
+<pre><code>Help on method_descriptor:
+
+insert(...)
+    L.insert(index, object) -- insert object before index
+</code></pre>
+
+<pre><code class="language-python">help(add)
+</code></pre>
+<pre><code>Help on function add in module __main__:
+
+add(x, y) ## 柯里化     函数可以有它的文档：可以使用fn.__doc__或help(fn)，函数的其他属性可以使用dir(fn)得到 ```python def fn():
+'''this is fn'''  ``` ```python help(fn) ```
+Help on function fn in module __main__:
+
+fn()
+    this is fn
+</code></pre>
+
+<pre><code class="language-python">fn.__doc__
+</code></pre>
+<pre><code>'this is fn' ```python fn.__name__ ```
+'fn' ```python sleep.__name__  # sleep函数的信息，在装饰后改变了，--没有柯里化 ```
+'wrap' ```python import datetime  ##  引入函数专门做柯里化 def logger(fn): # 函数作为返回值： 封装了fn
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+wrap.__name__ = fn.__name__
+wrap.__doc__ = fn.__doc__
+return wrap ``` ```python @logger def sleep(x):
+time.sleep(x) ``` ```python sleep.__name__ ```
+'sleep'   # 实现了，不过这部分逻辑不需要重复，写个函数先替代它... ```python def copy_proprities(src, dst):
+dst.__name__ =  src.__name__
+dst.__doc__ = src.__doc__ ``` ```python import datetime def logger(fn):
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+copy_proprities(fn, wrap)
+return wrap ``` ```python def copy_proprities(src):  # 既然里面有了src的变量，为什么不写一个目标参数就可以的函数，等等这里输入是一个函数，返回也是一个函数，那么应该是装饰器！不过它要求输入两个参数：dst需要在装饰器中传递进去。
+def _copy(dst):
+    dst.__name__ =  src.__name__
+    dst.__doc__ = src.__doc__
+    return dst
+return _copy
+</code></pre>
+
+<pre><code>```python
+import datetime
+def logger(fn): # 函数作为返回值： 封装了fn
+    @copy_proprities(fn)
+    def wrap(*args, **kwargs):
+        start = datetime.datetime.now()
+        ret = fn(*args, **kwargs)
+        end = datetime.datetime.now()
+        print('call {} took {}'.format(fn.__name__, end-start))
+        return ret
+    return wrap
+</code></pre>
+<pre><code class="language-python">@logger
+def sleep(x):
+    time.sleep(x)
+</code></pre>
+<pre><code class="language-python">sleep.__name__
+</code></pre>
+<pre><code>'sleep' ```python import functools ``` ```python import datetime def logger(fn): # 函数作为返回值： 封装了fn
+@functools.wraps(fn)
+def wrap(*args, **kwargs):
+    start = datetime.datetime.now()
+    ret = fn(*args, **kwargs)
+    end = datetime.datetime.now()
+    print('call {} took {}'.format(fn.__name__, end-start))
+    return ret
+return wrap ``` ```python @logger def sleep(x):
+time.sleep(x) ``` ```python sleep.__name__ ```
+'sleep' ```python help(functools.wraps)  # 这里有个函数专职做柯里化，调用它就行了 ```
+Help on function wraps in module functools:
+
+wraps(wrapped, assigned=('__module__', '__name__', '__qualname__', '__doc__', '__annotations__'), updated=('__dict__',))
+    Decorator factory to apply update_wrapper() to a wrapper function
+    
+    Returns a decorator that invokes update_wrapper() with the decorated
+    function as the wrapper argument and the arguments to wraps() as the
+    remaining arguments. Default arguments are as for update_wrapper().
+    This is a convenience function to simplify applying partial() to
+    update_wrapper(). ## 带参数的装饰器： 一个函数， 返回一个不带参数的装饰器 ```python s = datetime.datetime.now() ``` ```python e = datetime.datetime.now() ``` ```python delta = e - s ``` ```python delta.total_seconds() ```
+13.524782 ```python def logger(s):
+def _logger(fn):
+    @functools.wraps(fn)
+    def wrap(*args, **kwargs):
+        start = datetime.datetime.now()
+        ret = fn(*args, **kwargs)
+        end = datetime.datetime.now(ii)
+        if (end-start).total_seconds() &gt; s:
+            print('call {} took {}'.format(fn.__name__, end-start))
+        return ret
+    return wrap
+return _logger
+</code></pre>
+
+<pre><code>```python
+@logger(2)
+def sleep(x):
+    time.sleep(x)
+</code></pre>
+<pre><code class="language-python">sleep(3)
+</code></pre>
+<pre><code>call sleep took 0:00:03.004279 ```python sleep(1) ``` ```python def logger(s, p=lambda name, t: print('call {} took {}'.format(name, t))):
+def _logger(fn):
+    
+    @functools.wraps(fn)
+    def wrap(*args, **kwargs):
+        
+        start = datetime.datetime.now()
+        ret = fn(*args, **kwargs)
+        end = datetime.datetime.now()
+        if (end-start).total_seconds() &gt; s:
+            p(fn.__name__, end-start)
+        return ret
+    return wrap
+return _logger
+</code></pre>
+
+<pre><code>```python
+@logger(2, p=lambda name, t: None)
+def sleep(x):
+    time.sleep(x)
+</code></pre>
+<pre><code class="language-python">sleep(3)
+</code></pre>
+<pre><code class="language-python">def logger(s):
+    def _logger(p=lambda name, t: print('call {} took {}'.format(name, t))):
+        def __logger(fn):
+            @functools.wraps(fn)
+            def wrap(*args, **kwargs):
+                start = datetime.datetime.now()
+                ret = fn(*args, **kwargs)
+                end = datetime.datetime.now()
+                if (end-start).total_seconds() &gt; s:
+                    p(fn.__name__, end-start)
+                return ret
+            return wrap
+        return __logger
+    return _logger
+    
+</code></pre>
+<pre><code class="language-python">logger2s = logger(2)
+</code></pre>
+<pre><code class="language-python">@logger2s()
+def sleep(x):
+    time.sleep(x)
+</code></pre>
+<pre><code class="language-python">sleep(3)
+</code></pre>
+<pre><code>call sleep took 0:00:03.003878 ```python sleep(1) ``` ```python sleep = logger2s()(sleep) ```
+</code></pre>
+
+
+            </article>
+        </div>
+      </div>
+      <div class="panel docs-content">
+        <article class="post-content">
+          <div class="wrapper">
+            
+
+
+
+ 
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+    <footer class="footer" role="contentinfo">
+	<div class="container">
+		<p class="copyright">Copyright &copy; 2014-2017 <a href="https://gwoose.github.io/Resume.html"><code>gwoose</code></a>.</p>
+		<p>Powered by <a href="http://jekyllrb.com">Jekyll</a>, theme from <a href="http://lesscss.cn/">Less</a></p>
+	</div>
+</footer>
+
+<script src="/styles/js/jquery.min.js"></script>
+<script src="/styles/js/bootstrap.min.js"></script>
+<script src="/styles/js/holder.min.js"></script>
+<script src="/styles/js/application.js"></script>
+<script src="/styles/js/lessismore.js"></script>
+
+  </body>
+</html>
