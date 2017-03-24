@@ -1,4 +1,4 @@
 ---
-layout: python
-type: python
+  layout: python
+  type: python
 ---
