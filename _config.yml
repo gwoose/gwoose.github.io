@@ -33,8 +33,8 @@ defaults:
 paginate: 20
 
 #### Site
-title : Jekyll Jacman
-tagline: A fresh looking and responsive theme for Jekyll
+title : gwoose
+tagline: A Linux OPS
 assets: /assets
 baseurl: 
 
@@ -46,6 +46,7 @@ menu:
   Home: /
   Archives: /archives
   About: /about
+  Python: /python
 ## you can create `tags` and `categories` folders (I had created them already).
 ## And create a `index.md` file in each of them.
 ## set `front-matter`as
@@ -88,9 +89,9 @@ share_button: true #enable share buttons if true
 
 #### Author information
 author:
-  name: yitao      ## e.g. wuchong Author name
-  intro_line1:  "Hello ,I'm Larry Page in Google."    ## your introduction on the bottom of the page
-  intro_line2:  "This is my blog,believe it or not."  ## the 2nd line
+  name: gwoose      ## e.g. wuchong Author name
+  intro_line1:  "Hello ,I'm gwoose"    ## your introduction on the bottom of the page
+  intro_line2:  "This is my blog,New start."  ## the 2nd line
   weibo:      ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
   weibo_verifier:  ## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed.
   tsina:      ## e.g. 2176287895  Your weibo ID,It will be used in share button.
@@ -158,7 +159,7 @@ google_cse:
 baidu_search:     ## http://zn.baidu.com/
   enable: false
   id:   ## e.g. "783281470518440642"  for your baidu search id
-  site: http://zhannei.baidu.com/cse/search  ## your can change to your site instead of the default site
+  site: https://gwoose.github.io  ## your can change to your site instead of the default site
 tinysou_search:     ## http://tinysou.com/
   enable: false
   id:  ## e.g. "4ac092ad8d749fdc6293" for your tiny search id
