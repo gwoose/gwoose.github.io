@@ -1,0 +1,44 @@
+# Site settings
+title: GW 
+url: "https://gwoose.github.io"    # the protocol and hostname of your site, eg. `http://zhaoyuxiang.cn/blog`
+baseurl: "/bohu-jekyll-theme" # the prefix of your site uri, eg. `/bohu-jekyll-theme` or just one slash `/`
+#timezone: Asia/Shanghai
+description: gwoose的个人博客网站,关注Linux运维发展，Python ，（感兴趣的）JS等编程经验总结分享。
+# Your information
+email: gwoose@126.com
+author: gwoose 
+place: BeiJing,China 
+domain: vjidian.com 
+company: www.vjidian.com #Jeeyoo
+position: Ops #Technical Support
+school: 东北电力 
+major: 计算机科学与技术 #测控技术与仪器
+resume: "http://gwoose.github.io/personal"
+profile: 聪明在于勤奋，天才在于积累。 #yourmotto #聪明在于勤奋，天才在于积累。
+twitter_username: -
+weibo_username:  -
+github_username:  gwoose
+
+# Comment Service (Disqus or 多说)
+#  choose one and un-comment the line to active it
+disqus_shortname: guowang 
+# get one: https://disqus.com/admin/signup/
+# duoshuo_shortname: clark-zhao  
+# get one: http://duoshuo.com/create-site/
+
+permalink: /archivers/:title
+gems:
+ - jekyll-paginate
+ - jekyll-gist
+ - jemoji
+
+# Build settings
+paginate: 2
+paginate_path: "/page:num"
+
+highlighter: rouge
+markdown: kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
